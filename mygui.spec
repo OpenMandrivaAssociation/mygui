@@ -5,7 +5,7 @@
 
 Name:		%{name}
 Version:	3.0.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 Summary:	Fast, simple and flexible GUI library for Ogre
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
@@ -41,12 +41,14 @@ Group:		System/Libraries
 
 %description -n %{libname}
 MyGUI is a GUI library for Ogre Rendering Engine which aims to be fast,
-flexible and simple in using. 
+flexible and simple in using.
 
 
 %package -n %{develname}
 Summary:	Development files for MyGUI
 Group:		Development/C++
+Provides:	%{name}-devel = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	ois-devel
 Requires:	ogre-devel
@@ -56,9 +58,9 @@ The %{develname} package contains libraries and header files for
 developing applications that use %{name}.
 
 %package	doc
-Summary:        Development documentation for MyGUI
-Group:          Development/C++
-BuildArch:      noarch
+Summary:	Development documentation for MyGUI
+Group:		Development/C++
+BuildArch:	noarch
 
 %description	doc
 The %{name}-doc package contains reference documentation for
