@@ -4,25 +4,17 @@
 %define		develname %mklibname %{name} -d
 
 Name:		%{name}
-Version:	3.0.1
-Release:	%mkrel 2
+Version:	3.2
+Release:	%mkrel 1
 Summary:	Fast, simple and flexible GUI library for Ogre
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
 URL:		http://mygui.info/
-Source0:	http://downloads.sourceforge.net/my-gui/MyGUI_3.0.1_source.zip
-# Fix multilib and flags with cmake
-Patch0:		mygui_multilib_cflags.patch
-# Fix compilation problems with gcc4.4
-Patch1:		mygui_missing_headers.patch
-# Explicitly include thread library used by Ogre to avoid DSO issue
-Patch2:		mygui-ogrethreadlibs.patch
+Source0:	http://downloads.sourceforge.net/my-gui/MyGUI%{version}.tar.bz2
 # Get find poco from ogre
 Patch3:		mygui-add-findpoco.patch
-# Fix pc file issues.
-Patch4:		mygui-pc-fixes.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
+Patch5:		MyGUI3.2-cmake-svn.patch
 BuildRequires:	freetype-devel
 BuildRequires:	ois-devel
 BuildRequires:	ogre-devel
@@ -33,7 +25,7 @@ BuildRequires:	libuuid-devel
 
 %description
 MyGUI is a GUI library for Ogre Rendering Engine which aims to be fast,
-flexible and simple in using. 
+flexible and simple in using.
 
 %package -n %{libname}
 Summary:	Fast, simple and flexible GUI library for Ogre
@@ -67,12 +59,9 @@ The %{name}-doc package contains reference documentation for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n MyGUI3.0
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
+%setup -q -n MyGUI%{version}
 %patch3 -p0
-%patch4 -p1
+%patch5 -p1 -b .svn
 # Fix eol 
 sed -i 's/\r//' COPYING.LESSER
 
@@ -100,7 +89,6 @@ rm -rf %{buildroot}
 %endif
 
 # Remove sample showing plugin usage
-rm bin/Demo_PluginStrangeButton
 for file in bin/Demo_* ; do
   install -Dp -m 755 $file %{buildroot}%{_libdir}/MYGUI/Demos/`basename $file`
 done
@@ -128,7 +116,7 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root,-)
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root,-)
