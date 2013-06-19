@@ -12,7 +12,6 @@ License:	LGPLv3+
 URL:		http://mygui.info/
 Source0:	http://downloads.sourceforge.net/my-gui/MyGUI_%{version}.zip
 Patch0:		MyGUI3.2-linkage.patch
-Patch1:		MyGUI-3.2.0-multilib.patch
 # Get find poco from ogre
 Patch3:		mygui-add-findpoco.patch
 Patch5:		MyGUI-3.2.0-cmake-svn.patch
@@ -60,7 +59,6 @@ developing applications that use %{name}.
 %prep
 %setup -q -n MyGUI_%{version}
 %patch0 -p1
-%patch1 -p0
 %patch3 -p0
 %patch5 -p1 -b .svn
 # Fix eol 
@@ -85,15 +83,15 @@ popd
 %install
 %makeinstall_std
 
-# Remove sample showing plugin usage
-for file in bin/Demo_* ; do
-  install -Dp -m 755 $file %{buildroot}%{_libdir}/MYGUI/Demos/`basename $file`
-done
-
 %ifarch x86_64
     mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
     sed -i s,/lib,/lib64, %{buildroot}%{_libdir}/pkgconfig/MYGUI.pc
 %endif
+
+# Remove sample showing plugin usage
+for file in bin/Demo_* ; do
+  install -Dp -m 755 $file %{buildroot}%{_libdir}/MYGUI/Demos/`basename $file`
+done
 
 # Copy Media files
 mkdir -p %{buildroot}%{_datadir}/MYGUI/
