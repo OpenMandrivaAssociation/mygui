@@ -1,20 +1,21 @@
 %define		major 3
 %define		libname %mklibname %{name} %{major}
-%define		develname %mklibname %{name} -d
+%define		devname %mklibname %{name} -d
 
-Name:		mygui
-Version:	3.2
-Release:	2
 Summary:	Fast, simple and flexible GUI library for Ogre
+Name:		mygui
+Version:	3.2.0
+Release:	2
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
 URL:		http://mygui.info/
-Source0:	http://downloads.sourceforge.net/my-gui/MyGUI%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/my-gui/MyGUI_%{version}.zip
 Patch0:		MyGUI3.2-linkage.patch
+Patch1:		MyGUI-3.2.0-multilib.patch
 # Get find poco from ogre
 Patch3:		mygui-add-findpoco.patch
-Patch5:		MyGUI3.2-cmake-svn.patch
+Patch5:		MyGUI-3.2.0-cmake-svn.patch
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake
@@ -35,17 +36,16 @@ Group:		System/Libraries
 MyGUI is a GUI library for Ogre Rendering Engine which aims to be fast,
 flexible and simple in using.
 
-%package -n %{develname}
+%package -n %{devname}
 Summary:	Development files for MyGUI
 Group:		Development/C++
 Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	pkgconfig(OIS)
 Requires:	pkgconfig(OGRE)
 
-%description -n %{develname}
-The %{develname} package contains libraries and header files for
+%description -n %{devname}
+The %{devname} package contains libraries and header files for
 developing applications that use %{name}.
 
 %package	doc
@@ -58,8 +58,9 @@ The %{name}-doc package contains reference documentation for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n MyGUI%{version}
+%setup -q -n MyGUI_%{version}
 %patch0 -p1
+%patch1 -p0
 %patch3 -p0
 %patch5 -p1 -b .svn
 # Fix eol 
@@ -72,7 +73,7 @@ cmake \
     -DMYGUI_INSTALL_PDB:INTERNAL=FALSE \
     -DCMAKE_BUILD_TYPE:STRING=Release \
     -DMYGUI_BUILD_PLUGINS:BOOL=OFF \
-    -DCMAKE_CXX_FLAGS_RELEASE= \
+    -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
     -DCMAKE_SKIP_RPATH:BOOL=ON
 %make
 # Generate doxygen documentation
@@ -83,11 +84,6 @@ popd
 
 %install
 %makeinstall_std
-
-%ifarch x86_64
-    mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
-    sed -i s,/lib,/lib64, %{buildroot}%{_libdir}/pkgconfig/MYGUI.pc
-%endif
 
 # Remove sample showing plugin usage
 for file in bin/Demo_* ; do
@@ -114,7 +110,7 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 %files -n %{libname}
 %{_libdir}/*.so.%{major}*
 
-%files -n %{develname}
+%files -n %{devname}
 %{_includedir}/*
 %{_libdir}/*.a
 %{_libdir}/*.so
@@ -122,9 +118,4 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 
 %files doc
 %doc Docs/html
-
-
-
-
-%changelog
 
