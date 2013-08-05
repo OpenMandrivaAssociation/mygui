@@ -5,7 +5,7 @@
 Summary:	Fast, simple and flexible GUI library for Ogre
 Name:		mygui
 Version:	3.2.0
-Release:	2
+Release:	3
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
@@ -18,6 +18,7 @@ Patch5:		MyGUI-3.2.0-cmake-svn.patch
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake
+BuildRequires:	boost-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(OGRE)
