@@ -14,6 +14,7 @@ Source0:	https://github.com/MyGUI/mygui/archive/MyGUI%{version}.tar.gz
 Source1:	mygui.rpmlintrc
 Patch0:		mygui-add-findpoco.patch
 Patch1:		mygui-3.2.2-FHS.patch 
+Patch2:		mygui-libCommon-fixup.patch
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake
