@@ -4,17 +4,16 @@
 
 Summary:	Fast, simple and flexible GUI library for Ogre
 Name:		mygui
-Version:	3.2.0
-Release:	4
+Version:	3.2.2
+Release:	1
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
 URL:		http://mygui.info/
-Source0:	http://downloads.sourceforge.net/my-gui/MyGUI_%{version}.zip
-Patch0:		MyGUI3.2-linkage.patch
-# Get find poco from ogre
-Patch3:		mygui-add-findpoco.patch
-Patch5:		MyGUI-3.2.0-cmake-svn.patch
+Source0:	https://github.com/MyGUI/mygui/archive/MyGUI%{version}.tar.gz
+Source1:	mygui.rpmlintrc
+Patch0:		mygui-add-findpoco.patch
+Patch1:		mygui-3.2.2-FHS.patch 
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake
@@ -58,12 +57,8 @@ The %{name}-doc package contains reference documentation for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n MyGUI_%{version}
-%patch0 -p1
-%patch3 -p0
-%patch5 -p1 -b .svn
-# Fix eol 
-sed -i 's/\r//' COPYING.LESSER
+%setup -q -n mygui-MyGUI%{version}
+%apply_patches
 
 %build
 # Plugins are windows only atm
@@ -71,6 +66,7 @@ cmake \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DMYGUI_INSTALL_PDB:INTERNAL=FALSE \
     -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DMYGUI_USE_FREETYPE=ON \
     -DMYGUI_BUILD_PLUGINS:BOOL=OFF \
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
     -DCMAKE_SKIP_RPATH:BOOL=ON
@@ -89,11 +85,6 @@ popd
     sed -i s,/lib,/lib64, %{buildroot}%{_libdir}/pkgconfig/MYGUI.pc
 %endif
 
-# Remove sample showing plugin usage
-for file in bin/Demo_* ; do
-  install -Dp -m 755 $file %{buildroot}%{_libdir}/MYGUI/Demos/`basename $file`
-done
-
 # Copy Media files
 mkdir -p %{buildroot}%{_datadir}/MYGUI/
 cp -a Media %{buildroot}%{_datadir}/MYGUI/
@@ -105,9 +96,6 @@ rm -rf %{buildroot}%{_datadir}/MYGUI/Media/UnitTests
 rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 
 %files
-%doc COPYING.LESSER
-%dir %{_libdir}/MYGUI/
-%{_libdir}/MYGUI/*
 %dir %{_datadir}/MYGUI/Media
 %{_datadir}/MYGUI/Media/*
 
@@ -122,4 +110,3 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 
 %files doc
 %doc Docs/html
-
