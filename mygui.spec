@@ -71,6 +71,7 @@ cmake \
     -DMYGUI_BUILD_PLUGINS:BOOL=OFF \
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
     -DCMAKE_SKIP_RPATH:BOOL=ON
+
 %make
 # Generate doxygen documentation
 pushd Docs
@@ -81,7 +82,7 @@ popd
 %install
 %makeinstall_std
 
-%ifarch x86_64
+%ifarch x86_64 aarch64
     mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
     sed -i s,/lib,/lib64, %{buildroot}%{_libdir}/pkgconfig/MYGUI.pc
 %endif
