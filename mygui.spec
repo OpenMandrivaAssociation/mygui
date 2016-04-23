@@ -5,7 +5,7 @@
 Summary:	Fast, simple and flexible GUI library for Ogre
 Name:		mygui
 Version:	3.2.2
-Release:	1
+Release:	2
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
@@ -13,7 +13,7 @@ URL:		http://mygui.info/
 Source0:	https://github.com/MyGUI/mygui/archive/MyGUI%{version}.tar.gz
 Source1:	mygui.rpmlintrc
 Patch0:		mygui-add-findpoco.patch
-Patch1:		mygui-3.2.2-FHS.patch
+Patch1:		mygui-3.2.2-FHS.patch 
 Patch2:		mygui-libCommon-fixup.patch
 BuildRequires:	doxygen
 BuildRequires:	graphviz
