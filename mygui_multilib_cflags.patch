@@ -1,0 +1,125 @@
+--- a/CMakeLists.txt.orig	2016-03-05 07:12:23.873771406 -0600
++++ b/CMakeLists.txt	2016-03-05 07:15:14.743761158 -0600
+@@ -85,8 +85,8 @@
+ set(MYGUI_LIBRARIES MyGUIEngine)
+ 
+ # Specify build paths
+-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
+-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
++set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib${LIB_SUFFIX})
++set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib${LIB_SUFFIX})
+ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin)
+ if (WIN32 OR APPLE)
+ 	if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+@@ -181,35 +181,35 @@
+ # Set compiler specific build flags
+ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+ 	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
+-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
++#		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+ 	else ()
+ 		if (MYGUI_RENDERSYSTEM EQUAL 3)
+ 			# to avoid warnings from OGRE
+-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OGRE_INCLUDE_DIR}")
++#			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OGRE_INCLUDE_DIR}")
+ 		endif ()
+ 		if (MYGUI_SAMPLES_INPUT EQUAL 1 OR MYGUI_SAMPLES_INPUT EQUAL 3)
+ 			# to avoid warnings from OIS
+-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OIS_INCLUDE_DIR}")
++#			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OIS_INCLUDE_DIR}")
+ 		endif ()
+ 
+ 		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
++#                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
+                         # might be useful
+-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-warning-option -Wno-sign-conversion -Wno-conversion -Wno-c++11-extensions -Wno-documentation -Wno-old-style-cast")
++#                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-warning-option -Wno-sign-conversion -Wno-conversion -Wno-c++11-extensions -Wno-documentation -Wno-old-style-cast")
+                         # not useful
+-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-float-equal -Wno-padded -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
++#                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-float-equal -Wno-padded -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
+ 		else ()
+ 			# very interesting option, but way too many warnings
+ 			#add_definitions(-Weffc++)
+-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall  -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
+-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
++#			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall  -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
++#			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+ 			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+-				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wctor-dtor-privacy")
+-				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
++#				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wctor-dtor-privacy")
++#				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
+ 			endif ()
+ 
+ 			# MyGUI_UString.h ignored from warnings because of this
+-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
++#			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
+ 		endif ()
+ 	endif ()
+ endif ()
+--- a/CMake/Utils/MyGUIConfigTargets.cmake.orig	2016-03-05 10:59:52.896952810 -0600
++++ b/CMake/Utils/MyGUIConfigTargets.cmake	2016-03-05 10:49:28.588990252 -0600
+@@ -61,26 +61,26 @@
+ function(mygui_install_target TARGETNAME SUFFIX)
+ 	install(TARGETS ${TARGETNAME}
+ 		RUNTIME DESTINATION "bin${MYGUI_RELEASE_PATH}" CONFIGURATIONS Release None ""
+-		LIBRARY DESTINATION "lib${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
+-		ARCHIVE DESTINATION "lib${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
++		LIBRARY DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
++		ARCHIVE DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
+ 		FRAMEWORK DESTINATION "${MYGUI_FRAMEWORK_PATH}" CONFIGURATIONS Release None ""
+ 	)
+ 	install(TARGETS ${TARGETNAME}
+ 		RUNTIME DESTINATION "bin${MYGUI_RELWDBG_PATH}" CONFIGURATIONS RelWithDebInfo
+-		LIBRARY DESTINATION "lib${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
+-		ARCHIVE DESTINATION "lib${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
++		LIBRARY DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
++		ARCHIVE DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
+ 		FRAMEWORK DESTINATION "${MYGUI_FRAMEWORK_PATH}" CONFIGURATIONS RelWithDebInfo
+ 	)
+ 	install(TARGETS ${TARGETNAME}
+ 		RUNTIME DESTINATION "bin${MYGUI_MINSIZE_PATH}" CONFIGURATIONS MinSizeRel
+-		LIBRARY DESTINATION "lib${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
+-		ARCHIVE DESTINATION "lib${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
++		LIBRARY DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
++		ARCHIVE DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
+ 		FRAMEWORK DESTINATION "${MYGUI_FRAMEWORK_PATH}" CONFIGURATIONS MinSizeRel
+ 	)
+ 	install(TARGETS ${TARGETNAME}
+ 		RUNTIME DESTINATION "bin${MYGUI_DEBUG_PATH}" CONFIGURATIONS Debug
+-		LIBRARY DESTINATION "lib${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
+-		ARCHIVE DESTINATION "lib${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
++		LIBRARY DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
++		ARCHIVE DESTINATION "lib${LIB_SUFFIX}${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
+ 		FRAMEWORK DESTINATION "${MYGUI_FRAMEWORK_PATH}" CONFIGURATIONS Debug
+ 	)
+ endfunction(mygui_install_target)
+@@ -430,12 +430,12 @@
+ 	if (MYGUI_INSTALL_PDB)
+ 		# install debug pdb files
+ 		if (MYGUI_STATIC)
+-			install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_DEBUG_PATH}/${PROJECTNAME}Static_d.pdb
+-				DESTINATION lib${MYGUI_LIB_DEBUG_PATH}
++			install(FILES ${MYGUI_BINARY_DIR}/lib${LIB_SUFFIX}${MYGUI_LIB_DEBUG_PATH}/${PROJECTNAME}Static_d.pdb
++				DESTINATION lib${LIB_SUFFIX}${MYGUI_LIB_DEBUG_PATH}
+ 				CONFIGURATIONS Debug
+ 			)
+-			install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_RELWDBG_PATH}/${PROJECTNAME}Static.pdb
+-				DESTINATION lib${MYGUI_LIB_RELWDBG_PATH}
++			install(FILES ${MYGUI_BINARY_DIR}/lib${LIB_SUFFIX}${MYGUI_LIB_RELWDBG_PATH}/${PROJECTNAME}Static.pdb
++				DESTINATION lib${LIB_SUFFIX}${MYGUI_LIB_RELWDBG_PATH}
+ 				CONFIGURATIONS RelWithDebInfo
+ 			)
+ 		else ()
+--- a/CMake/ConfigureBuild.cmake.orig	2014-12-30 13:45:12.844932636 -0600
++++ b/CMake/ConfigureBuild.cmake	2014-12-30 13:52:09.004824418 -0600
+@@ -47,7 +47,7 @@
+   else ()
+     configure_file(${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc @ONLY)
+   endif ()
+-  install(FILES ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc DESTINATION lib/pkgconfig)
++  install(FILES ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc DESTINATION lib${LIB_SUFFIX}/pkgconfig)
+ 
+   # configure additional packages
+   
