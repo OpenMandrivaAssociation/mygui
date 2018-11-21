@@ -82,11 +82,6 @@ popd
 %install
 %makeinstall_std -C build
 
-%ifarch x86_64 aarch64
-    mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
-    sed -i s,/lib,/lib64, %{buildroot}%{_libdir}/pkgconfig/MYGUI.pc
-%endif
-
 # Copy Media files
 mkdir -p %{buildroot}%{_datadir}/MYGUI/
 cp -a Media %{buildroot}%{_datadir}/MYGUI/
