@@ -23,7 +23,7 @@ BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(OGRE)
 BuildRequires:	pkgconfig(uuid)
-
+BuildRequires:	pkgconfig(x11)
 %description
 MyGUI is a GUI library for Ogre Rendering Engine which aims to be fast,
 flexible and simple in using.
