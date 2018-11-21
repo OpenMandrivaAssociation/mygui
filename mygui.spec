@@ -63,8 +63,7 @@ developing applications that use %{name}.
 
 %build
 # Plugins are windows only atm
-cmake \
-    -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+%cmake \
     -DMYGUI_INSTALL_PDB:INTERNAL=FALSE \
     -DCMAKE_BUILD_TYPE:STRING=Release \
     -DMYGUI_USE_FREETYPE=ON \
@@ -80,7 +79,7 @@ rm -f html/installdox
 popd
 
 %install
-%makeinstall_std
+%makeinstall_std -C build
 
 %ifarch x86_64 aarch64
     mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
@@ -106,9 +105,8 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 
 %files -n %{devname}
 %{_includedir}/*
-%{_libdir}/*.a
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
 %files doc
-%doc Docs/html
+%doc build/Docs/html
