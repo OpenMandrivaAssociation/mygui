@@ -100,12 +100,12 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 %{_datadir}/MYGUI/Media/*
 
 %files -n %{libname}
-#{_libdir}/*.so.%{major}*
+%{_libdir}/*.so.%{version}*
 
 %files -n %{devname}
 %{_includedir}/*
-#{_libdir}/*.so
-#{_libdir}/pkgconfig/*.pc
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*.pc
 
 %files doc
 %doc build/Docs/html
