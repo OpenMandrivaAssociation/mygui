@@ -4,18 +4,21 @@
 
 Summary:	Fast, simple and flexible GUI library for Ogre
 Name:		mygui
-Version:	3.2.2
-Release:	3
+Version:	3.4.0
+Release:	1
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
 URL:		http://mygui.info/
-Source0:	https://github.com/MyGUI/mygui/archive/MyGUI%{version}.tar.gz
+Source0:	https://github.com/MyGUI/mygui/archive/mygui-MyGUI%{version}.tar.gz
+
 Source1:	mygui.rpmlintrc
 Patch0:		mygui-add-findpoco.patch
 Patch1:		mygui-3.2.2-FHS.patch 
 Patch2:		mygui-libCommon-fixup.patch
-Patch3:		mygui_multilib_cflags.patch
+#Patch3:		mygui_multilib_cflags.patch
+Patch4:     MyGUI-lib_suffix.patch
+
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake
@@ -59,8 +62,8 @@ The %{name}-doc package contains reference documentation for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n mygui-MyGUI%{version}
-%apply_patches
+%setup -q -n mygui-MyGUI3.4.0
+%autopatch -p1
 
 %build
 # Plugins are windows only atm
@@ -72,7 +75,7 @@ developing applications that use %{name}.
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
     -DCMAKE_SKIP_RPATH:BOOL=ON
 
-%make
+%make_build
 # Generate doxygen documentation
 pushd Docs
 doxygen
@@ -80,7 +83,7 @@ rm -f html/installdox
 popd
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 
 # Copy Media files
 mkdir -p %{buildroot}%{_datadir}/MYGUI/
@@ -97,7 +100,7 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 %{_datadir}/MYGUI/Media/*
 
 %files -n %{libname}
-%{_libdir}/*.so.%{major}*
+%{_libdir}/*.so.%{version}*
 
 %files -n %{devname}
 %{_includedir}/*
