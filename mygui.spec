@@ -16,7 +16,7 @@ Source1:	mygui.rpmlintrc
 Patch0:		mygui-add-findpoco.patch
 Patch1:		mygui-3.2.2-FHS.patch 
 Patch2:		mygui-libCommon-fixup.patch
-Patch3:		mygui_multilib_cflags.patch
+#Patch3:		mygui_multilib_cflags.patch
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake
