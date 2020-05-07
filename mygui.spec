@@ -10,7 +10,8 @@ Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
 URL:		http://mygui.info/
-Source0:	https://github.com/MyGUI/mygui/archive/MyGUI%{version}.tar.gz
+Source0:	https://github.com/MyGUI/mygui/archive/mygui-MyGUI%{version}.tar.gz
+
 Source1:	mygui.rpmlintrc
 Patch0:		mygui-add-findpoco.patch
 Patch1:		mygui-3.2.2-FHS.patch 
@@ -59,8 +60,8 @@ The %{name}-doc package contains reference documentation for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n mygui-MyGUI%{version}
-%apply_patches
+%setup -q -n mygui-MyGUI3.4.0
+%autopatch -p1
 
 %build
 # Plugins are windows only atm
