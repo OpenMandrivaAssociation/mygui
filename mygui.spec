@@ -73,7 +73,7 @@ developing applications that use %{name}.
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
     -DCMAKE_SKIP_RPATH:BOOL=ON
 
-%make
+%make_build
 # Generate doxygen documentation
 pushd Docs
 doxygen
@@ -81,7 +81,7 @@ rm -f html/installdox
 popd
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 
 # Copy Media files
 mkdir -p %{buildroot}%{_datadir}/MYGUI/
@@ -102,8 +102,8 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 
 %files -n %{devname}
 %{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+#{_libdir}/*.so
+#{_libdir}/pkgconfig/*.pc
 
 %files doc
 %doc build/Docs/html
