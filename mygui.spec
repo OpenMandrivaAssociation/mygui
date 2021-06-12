@@ -62,7 +62,7 @@ The %{name}-doc package contains reference documentation for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n mygui-MyGUI3.4.0
+%setup -q -n mygui-MyGUI%{version}
 %autopatch -p1
 
 %build
