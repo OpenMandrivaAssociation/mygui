@@ -15,7 +15,7 @@ Source0:	https://github.com/MyGUI/mygui/archive/mygui-MyGUI%{version}.tar.gz
 Source1:	mygui.rpmlintrc
 Patch0:		mygui-add-findpoco.patch
 #Patch1:		mygui-3.2.2-FHS.patch 
-Patch2:		mygui-libCommon-fixup.patch
+#Patch2:		mygui-libCommon-fixup.patch
 #Patch3:		mygui_multilib_cflags.patch
 Patch4:     MyGUI-lib_suffix.patch
 
