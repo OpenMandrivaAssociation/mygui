@@ -23,6 +23,7 @@ BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake
 BuildRequires:	boost-devel
+BuildRequires:  ogre
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(OGRE)
