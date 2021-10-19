@@ -74,6 +74,7 @@ export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
     -DMYGUI_USE_FREETYPE=ON \
     -DMYGUI_BUILD_PLUGINS:BOOL=OFF \
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
+    -DOGRE_CONFIG_DIR=%{_datadir}/OGRE \
     -DCMAKE_SKIP_RPATH:BOOL=ON
 
 %make_build
