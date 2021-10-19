@@ -2,7 +2,7 @@
 %define		libname %mklibname %{name} %{major}
 %define		devname %mklibname %{name} -d
 
-#define _disable_ld_no_undefined 1
+%define _disable_ld_no_undefined 1
 %define _disable_lto 1
 
 Summary:	Fast, simple and flexible GUI library for Ogre
