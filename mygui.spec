@@ -84,10 +84,10 @@ export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
 
 %make_build
 # Generate doxygen documentation
-pushd Docs
-doxygen
-rm -f html/installdox
-popd
+#pushd Docs
+#doxygen
+#rm -f html/installdox
+#popd
 
 %install
 %make_install -C build
