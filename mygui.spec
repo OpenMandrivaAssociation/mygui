@@ -57,14 +57,14 @@ Requires:	pkgconfig(OGRE)
 The %{devname} package contains libraries and header files for
 developing applications that use %{name}.
 
-%package	doc
-Summary:	Development documentation for MyGUI
-Group:		Development/C++
-BuildArch:	noarch
+#package	doc
+#Summary:	Development documentation for MyGUI
+#Group:		Development/C++
+#BuildArch:	noarch
 
-%description	doc
-The %{name}-doc package contains reference documentation for
-developing applications that use %{name}.
+#description	doc
+#The %{name}-doc package contains reference documentation for
+#developing applications that use %{name}.
 
 %prep
 %setup -q -n mygui-MyGUI%{version}
@@ -114,5 +114,5 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
-%files doc
-%doc build/Docs/html
+#files doc
+#doc build/Docs/html
