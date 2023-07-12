@@ -8,7 +8,7 @@
 Summary:	Fast, simple and flexible GUI library for Ogre
 Name:		mygui
 Version:	3.4.1
-Release:	7
+Release:	8
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
