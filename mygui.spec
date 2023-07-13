@@ -71,6 +71,8 @@ developing applications that use %{name}.
 %autopatch -p1
 
 %build
+export CC=gcc
+export CXX=g++
 export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
 # Plugins are windows only atm
 %cmake \
