@@ -1,0 +1,12 @@
+diff -up mygui-MyGUI3.4.2/Common/CMakeLists.txt.omv~ mygui-MyGUI3.4.2/Common/CMakeLists.txt
+--- mygui-MyGUI3.4.2/Common/CMakeLists.txt.omv~	2023-07-21 01:51:07.857464694 +0200
++++ mygui-MyGUI3.4.2/Common/CMakeLists.txt	2023-07-21 01:51:24.071624740 +0200
+@@ -99,7 +99,7 @@ add_library(${PROJECTNAME} ${HEADER_FILE
+ 
+ mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
+ add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+-target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform SDL2::Main)
++target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform SDL2::Main SDL2_image)
+ if (MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)
+ 	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
+ 	mygui_install_target(${PROJECTNAME} "")
