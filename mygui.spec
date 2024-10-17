@@ -11,7 +11,7 @@ Release:	1
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
-URL:		http://mygui.info/
+URL:		https://mygui.info/
 Source0:	https://github.com/MyGUI/mygui/archive/refs/tags/MyGUI%{version}.tar.gz
 
 Source1:	mygui.rpmlintrc
