@@ -7,7 +7,7 @@
 Summary:	Fast, simple and flexible GUI library for Ogre
 Name:		mygui
 Version:	3.4.3
-Release:	2
+Release:	3
 Group:		System/Libraries
 # UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
 License:	LGPLv3+
@@ -83,6 +83,7 @@ export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
     -DMYGUI_INSTALL_PDB:INTERNAL=FALSE \
     -DMYGUI_USE_FREETYPE=ON \
     -DMYGUI_BUILD_PLUGINS:BOOL=OFF \
+    -DMYGUI_USE_STD_STRING_VIEW=ON \
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
 %if %{with ogre}
     -DOGRE_CONFIG_DIR=%{_datadir}/OGRE \
