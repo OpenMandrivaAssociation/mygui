@@ -27,6 +27,7 @@ BuildRequires:	graphviz
 BuildRequires:	cmake ninja
 BuildRequires:	boost-devel
 BuildRequires:	pkgconfig(freetype2)
+BuildRequires:  pkgconfig(gl)
 %if %{with ogre}
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(OGRE)
