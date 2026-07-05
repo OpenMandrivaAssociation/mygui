@@ -28,6 +28,7 @@ BuildRequires:	cmake ninja
 BuildRequires:	boost-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(dri)
 %if %{with ogre}
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(OGRE)
