@@ -24,7 +24,7 @@ Patch1:		mygui-3.4.2-SDL2_image-linkage.patch
 
 BuildRequires:	doxygen
 BuildRequires:	graphviz
-BuildRequires:	cmake
+BuildRequires:	cmake ninja
 BuildRequires:	boost-devel
 BuildRequires:	pkgconfig(freetype2)
 %if %{with ogre}
