@@ -28,6 +28,8 @@ BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake ninja
 BuildRequires:	boost-devel
+BuildRequires:	libatomic-devel
+BuildRequires:	%{_lib}atomic-static-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(dri)
