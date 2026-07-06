@@ -30,6 +30,7 @@ BuildRequires:	pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(dri)
 BuildRequires:  pkgconfig(glu)
+BuildRequires:  pkgconfig(glew)
 %if %{with ogre}
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(OGRE)
