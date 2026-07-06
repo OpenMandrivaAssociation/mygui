@@ -89,6 +89,8 @@ export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
     -DMYGUI_DONT_USE_OBSOLETE=ON \
     -DMYGUI_BUILD_PLUGINS:BOOL=OFF \
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
+    -DMYGUI_BUILD_SAMPLES=OFF \
+    -DMYGUI_BUILD_DEMOS=ON \
 %if %{with ogre}
     -DOGRE_CONFIG_DIR=%{_datadir}/OGRE \
 %else
