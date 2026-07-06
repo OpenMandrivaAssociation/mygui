@@ -86,6 +86,8 @@ developing applications that use %{name}.
 export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
 # Plugins are windows only atm
 %global optflags %{optflags} -fuse-ld=mold
+export CC=gcc
+export CXX=g++
 %cmake \
     -DMYGUI_INSTALL_PDB:INTERNAL=FALSE \
     -DMYGUI_USE_FREETYPE=ON \
