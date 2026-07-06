@@ -3,7 +3,7 @@
 %define		libname %mklibname %{name} %{major}
 %define		devname %mklibname %{name} -d
 
-%bcond_with ogre
+%bcond_without ogre
 
 Summary:	Fast, simple and flexible GUI library for Ogre
 Name:		mygui
