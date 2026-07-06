@@ -23,6 +23,7 @@ Patch0:		mygui-add-findpoco.patch
 #Patch4:     MyGUI-lib_suffix.patch
 Patch1:		mygui-3.4.2-SDL2_image-linkage.patch
 
+BuildRequires:  mold
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	cmake ninja
@@ -84,6 +85,7 @@ developing applications that use %{name}.
 %build
 export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
 # Plugins are windows only atm
+%global optflags %{optflags} -fuse-ld=mold
 %cmake \
     -DMYGUI_INSTALL_PDB:INTERNAL=FALSE \
     -DMYGUI_USE_FREETYPE=ON \
