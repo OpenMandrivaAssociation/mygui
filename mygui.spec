@@ -133,6 +133,7 @@ rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 %files -n %{devname}
 %{_includedir}/*
 %{_libdir}/*.so
+%{_libdir}/*.a
 %{_libdir}/pkgconfig/*.pc
 
 #files doc
