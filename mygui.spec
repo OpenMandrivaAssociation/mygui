@@ -28,14 +28,14 @@ BuildRequires:	cmake ninja
 BuildRequires:	boost-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
-%if %{with ogre}
-BuildRequires:	pkgconfig(OIS)
-BuildRequires:	pkgconfig(OGRE)
-BuildRequires:  ogre
-BuildRequires:  ogre-samples
-%else
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(SDL2_image)
+# Ogre platform is also built (stuntrally needs MyGUI.OgrePlatform)
+BuildRequires:	pkgconfig(OGRE)
+BuildRequires:	ogre
+%if %{with ogre}
+BuildRequires:	pkgconfig(OIS)
+BuildRequires:  ogre-samples
 %endif
 BuildRequires:	pkgconfig(uuid)
 BuildRequires:	pkgconfig(x11)
@@ -76,9 +76,14 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1 -n mygui-MyGUI%{version}
+# Default render system stays OpenGL3; also build the Ogre platform library.
+if ! grep -q 'Ogre/OgrePlatform' Platforms/CMakeLists.txt; then
+	echo 'add_subdirectory(Ogre/OgrePlatform)' >> Platforms/CMakeLists.txt
+fi
 
 %build
-export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
+export OGRE_LIBRARIES="$(pkg-config --libs OGRE) -lboost_system"
+export OGRE_INCLUDE_DIR="$(pkg-config --variable=includedir OGRE)/OGRE"
 # Plugins are windows only atm
 %cmake \
     -DMYGUI_INSTALL_PDB:INTERNAL=FALSE \
@@ -92,6 +97,8 @@ export OGRE_LIBRARIES="`pkg-config --libs OGRE` -lboost_system"
     -DMYGUI_RENDERSYSTEM=7 \
 %endif
     -DCMAKE_SKIP_RPATH:BOOL=ON \
+    -DOGRE_INCLUDE_DIR=%{_includedir}/OGRE \
+    -DOGRE_LIBRARIES="$(pkg-config --libs OGRE) -lboost_system" \
     -G Ninja
 
 %ninja_build
