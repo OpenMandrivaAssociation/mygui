@@ -90,6 +90,8 @@ export OGRE_INCLUDE_DIR="$(pkg-config --variable=includedir OGRE)/OGRE"
     -DMYGUI_USE_FREETYPE=ON \
     -DMYGUI_DONT_USE_OBSOLETE=ON \
     -DMYGUI_BUILD_PLUGINS:BOOL=OFF \
+    -DMYGUI_BUILD_DEMOS:BOOL=OFF \
+    -DMYGUI_BUILD_TOOLS:BOOL=OFF \
     -DCMAKE_CXX_FLAGS_RELEASE="%{optflags}" \
 %if %{with ogre}
     -DOGRE_CONFIG_DIR=%{_datadir}/OGRE \
